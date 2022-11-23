@@ -10,7 +10,7 @@ const PostBase = function (props) {
         <h1 className="post__title">{props.xxx.title}</h1>
         
         <p className="post__info">{props.xxx.body}</p>
-        <MyButton type="button" className="post__button">Delete</MyButton>
+        <MyButton onClick={()=> props.remove(props.xxx)} type="button" className="post__button">Delete</MyButton>
       </div>
     )
 
