@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./styles/App.css";
 import PostList from "./componens/PostList";
 import PostForm from "./componens/PostForm";
+import MySelect from "./componens/select/Select";
 
 
 function App() {
@@ -25,8 +26,18 @@ function App() {
   return (
     <div className="App">
       <PostForm create={creatPost} />
-      <PostList removeElement={removePost} newPost={posts} title="The best post List" />
-         
+      <MySelect
+        defaultValue="Sort"
+        options={[
+          { value: 'title', name: 'On name' },
+          { value: 'bode', name: 'On body' }
+        ]}
+      />
+      {posts.length === 0
+       ? <h1 style={{ textAlign: "center", marginTop: "15px" }}>Not foud posts</h1>
+       : <PostList removeElement={removePost} newPost={posts} title="The best post List" />}
+      
+      
     </div>
   );
 }
