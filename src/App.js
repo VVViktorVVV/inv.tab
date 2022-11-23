@@ -17,6 +17,10 @@ function App() {
     setPosts([...posts, newPost])
   };
 
+  // const removePost = function (post) {
+  //   setPosts
+  // }
+
    
   return (
     <div className="App">

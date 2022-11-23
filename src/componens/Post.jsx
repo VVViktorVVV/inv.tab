@@ -1,4 +1,5 @@
 import React from "react";
+import MyButton from "./button/Button";
 
 const PostBase = function (props) {
   console.log(props);
@@ -9,7 +10,7 @@ const PostBase = function (props) {
         <h1 className="post__title">{props.xxx.title}</h1>
         
         <p className="post__info">{props.xxx.body}</p>
-        <button type="button" className="post__button">Delete</button>
+        <MyButton type="button" className="post__button">Delete</MyButton>
       </div>
     )
 
