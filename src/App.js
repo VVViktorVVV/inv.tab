@@ -8,10 +8,13 @@ import MySelect from "./componens/select/Select";
 function App() {
   const [posts, setPosts] = useState(
     [
-      { id: 1, title: "firstEL", body: "content about firstEL" },
-      { id: 2, title: "secondEL", body: "content about firstEL" }
+      { id: 1, title: "zzz", body: "bbb" },
+      { id: 2, title: "bbb", body: "ccc" },
+      { id: 3, title: "www", body: "aaa" }
     ]
   );
+
+  const [selectedSort, setSelectedSort] = useState();
 
   const creatPost = function (newPost) {
    
@@ -22,15 +25,25 @@ function App() {
     setPosts(posts.filter(post => post.id !== e.id))
   };
 
+  const sortPost = function (sort) {
+    setSelectedSort(sort);
+    console.log(sort)
+    setPosts([...posts].sort((firstEL, secondEL) => firstEL[sort].localeCompare(secondEL[sort])));
+
+  }
+
    
   return (
     <div className="App">
       <PostForm create={creatPost} />
       <MySelect
+        value={selectedSort}
+        onChange={sortPost}
         defaultValue="Sort"
         options={[
+         
           { value: 'title', name: 'On name' },
-          { value: 'bode', name: 'On body' }
+          { value: 'body', name: 'On body' }
         ]}
       />
       {posts.length === 0

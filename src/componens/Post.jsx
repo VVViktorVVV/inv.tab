@@ -2,8 +2,7 @@ import React from "react";
 import MyButton from "./button/Button";
 
 const PostBase = function (props) {
-  console.log(props);
-
+ 
     return (
       <div className="post">
         <p className="post__info">{props.number}</p>
