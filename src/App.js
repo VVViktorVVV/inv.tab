@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import "./styles/App.css";
 import PostList from "./componens/PostList";
 import PostForm from "./componens/PostForm";
 import MySelect from "./componens/select/Select";
+import MyInput from "./componens/input/Input";
 
 
 function App() {
@@ -15,6 +16,31 @@ function App() {
   );
 
   const [selectedSort, setSelectedSort] = useState();
+  const [searchQuery, setSearchQuery] = useState()
+
+
+  
+  
+  const getSortedPosts = function () {
+    console.log("Работает функция сортедпост");
+    if (selectedSort) {
+      return [...posts].sort((firstEL, secondEL) => firstEL[selectedSort].localeCompare(secondEL[selectedSort]));
+    } 
+    return posts;
+  }
+
+  const sortedPosts = useMemo(getSortedPosts, [selectedSort, posts]);
+  console.log(sortedPosts);
+
+  const sortedAndSearchPosts = useMemo(() => {
+    if (searchQuery) {
+      return sortedPosts.filter(post => post.title.includes(searchQuery)||post.body.includes(searchQuery));
+    };
+    return sortedPosts;
+        }, [searchQuery, sortedPosts]
+  )
+
+  
 
   const creatPost = function (newPost) {
    
@@ -27,15 +53,20 @@ function App() {
 
   const sortPost = function (sort) {
     setSelectedSort(sort);
-    console.log(sort)
-    setPosts([...posts].sort((firstEL, secondEL) => firstEL[sort].localeCompare(secondEL[sort])));
-
   }
 
    
   return (
     <div className="App">
       <PostForm create={creatPost} />
+      <MyInput
+        placeholder="search"
+
+        // управляемый инпут
+        value={searchQuery}
+        onChange={e => setSearchQuery(e.target.value) }
+      />
+      
       <MySelect
         value={selectedSort}
         onChange={sortPost}
@@ -48,7 +79,7 @@ function App() {
       />
       {posts.length === 0
        ? <h1 style={{ textAlign: "center", marginTop: "15px" }}>Not foud posts</h1>
-       : <PostList removeElement={removePost} newPost={posts} title="The best post List" />}
+       : <PostList removeElement={removePost} newPost={sortedAndSearchPosts} title="The best post List" />}
       
       
     </div>
